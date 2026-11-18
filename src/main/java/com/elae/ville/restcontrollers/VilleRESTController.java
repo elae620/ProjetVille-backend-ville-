@@ -1,4 +1,4 @@
-package com.elae.ville.restcontrollers;
+ package com.elae.ville.restcontrollers;
 
 import java.util.List;
 
@@ -22,49 +22,38 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-@AllArgsConstructor
 public class VilleRESTController {
-	
-	@Autowired
-	VilleService villeService;
-	
-	
-	
-	@GetMapping
-	public List<Ville> getAllVilles(){
-		return villeService.getAllVilles();
-	}
-	
-	//@RequestMapping(value="/{id}",method = RequestMethod.GET)
-	@GetMapping("/{id}")
-	public Ville getVilleById(@PathVariable("id") Long id) {
-	   return villeService.getVille(id);
-	 }
-	
-	//@RequestMapping(method = RequestMethod.POST)
-	@PostMapping()
-	public Ville createVille(@RequestBody Ville ville) {
-	  return villeService.saveVille(ville);
-	}
-	
-	//@RequestMapping(method = RequestMethod.PUT)
-	@PutMapping()
-	public Ville updateVille(@RequestBody Ville ville) {
-	   return villeService.updateVille(ville);
-	}
-	
-	//@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
-	 @DeleteMapping("/{id}")
-	public void deleteVille(@PathVariable("id") Long id)
-	{
-		villeService.deleteVilleById(id);
-	}
 
-	 
-	 @GetMapping("/villepays/{idPays}")
-	public List<Ville> getVillesByPaysId(@PathVariable("idPays") Long idPays) {
-	return villeService.findByPaysIdPays(idPays);
-	}
+    @Autowired
+    VilleService villeService;
 
+    @RequestMapping(path = "all", method = RequestMethod.GET)
+    public List<Ville> getAllVilles() {
+        return villeService.getAllVilles();
+    }
+    
+    @RequestMapping(value = "/getbyid/{id}", method = RequestMethod.GET)
+    public Ville getVilleById(@PathVariable("id") Long id) {
+        return villeService.getVille(id);
+    }
 
+    @RequestMapping(path = "/addville", method = RequestMethod.POST)
+    public Ville createVille(@RequestBody Ville ville) {
+        return villeService.saveVille(ville);
+    }
+
+    @RequestMapping(path = "/updateville", method = RequestMethod.PUT)
+    public Ville updateVille(@RequestBody Ville ville) {
+        return villeService.updateVille(ville);
+    }
+
+    @RequestMapping(value = "/delville/{id}", method = RequestMethod.DELETE)
+    public void deleteVille(@PathVariable("id") Long id) {
+        villeService.deleteVilleById(id);
+    }
+
+    @RequestMapping(value = "/villespays/{idPays}", method = RequestMethod.GET)
+    public List<Ville> getVillesByPaysId(@PathVariable("idPays") Long idPays) {
+        return villeService.findByPaysIdPays(idPays);
+    }
 }
